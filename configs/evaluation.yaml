@@ -1,0 +1,51 @@
+# Frozen evaluation defaults only (T13, R08-R10; T17 adds optional R13).
+# No credentials in this file. Bootstrap and split sizes are frozen with
+# evaluation-v1; changing them requires a new evaluation version and new
+# run manifests. Do not tune on locked or control questions.
+# Core arms A-D stay frozen. Decomposition (E) is optional and additive: it
+# reuses the same final budgets, is compared on the tuning set first, freezes
+# its selection before any locked use, and never replaces A-D results.
+evaluation_version: "evaluation-v1"
+scoring_version: "hotpot-scoring-v1"
+bootstrap_seed: 42
+bootstrap_replicates: 2000
+confidence_level: 0.95
+tuning_size: 30
+evaluation_size: 120
+control_size: 30
+arms:
+  - "vector"
+  - "vector_rerank"
+  - "hybrid_rerank"
+  - "hybrid_rerank_triples"
+num_candidates: 30
+max_chunks: 8
+max_context_tokens: 3000
+max_triples_per_arm:
+  vector: 0
+  vector_rerank: 0
+  hybrid_rerank: 0
+  hybrid_rerank_triples: 12
+compatibility_fields:
+  - "corpus_id"
+  - "index_fingerprint"
+  - "question_set_hash"
+  - "embedding_model"
+  - "answer_model"
+  - "prompt_version"
+  - "max_chunks"
+  - "max_context_tokens"
+single_hop_path: "data/controls/single_hop.jsonl"
+require_human_review: true
+single_hop_regression_tolerance_pp: 2.0
+decision_rule: "Select the complex arm only when tuning F1 improves, all-support coverage does not worsen, and costs are acceptable. Freeze before locked evaluation."
+# T17 optional decomposition (R13, E): bounded planner metadata and freeze gate.
+# These fields are validated by EvaluationConfig; the documentary keys below it
+# are ignored by the loader but kept for operators.
+decomposition_version: "decomposition-v1"
+decomposition_prompt_version: "decomposition-planner-v1"
+decomposition_max_subquestions: 2
+require_decomposition_freeze: true
+decomposition_strategy: "decomposition"
+decomposition_decision_rule: "Compare baseline vs decomposition on the tuning set with matched final budgets; select decomposition only on tuning F1 improvement without all-support worsening; freeze the selection before locked evaluation; report incremental F1, recall, latency and cost additively without replacing A-D results."
+decomposition_notes: "At most 2 sub-questions; unsupported first answer stops the chain; sub-evidence packs under top 8 / 3000 tokens; planner plus sub-answer calls add query tokens/latency."

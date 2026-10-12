@@ -1,0 +1,126 @@
+{
+  "corpus_id": "hp_fixture_t08_v1",
+  "resolver_version": "resolver-v1",
+  "description": "Conservative resolution fixtures: corroborated merges stay together, initials, common names and transitive bridges stay separate.",
+  "cases": [
+    {
+      "name": "corroborated_alias_merge",
+      "description": "Distinctive PERSON with shared first+last and compatible middle merges.",
+      "extractions": [
+        {
+          "chunk_id": "c_ada_1",
+          "entities": [
+            {"local_id": "e1", "name": "Ada Lovelace", "sentence_ids": [0], "type": "PERSON"}
+          ]
+        },
+        {
+          "chunk_id": "c_ada_2",
+          "entities": [
+            {"local_id": "e1", "name": "Ada Augusta Lovelace", "sentence_ids": [0], "type": "PERSON"}
+          ]
+        }
+      ],
+      "expect_same_entity": [["c_ada_1#e1", "c_ada_2#e1"]],
+      "expect_separate": []
+    },
+    {
+      "name": "initials_ambiguity",
+      "description": "J. Smith cannot resolve to John Smith while Jack Smith conflicts.",
+      "extractions": [
+        {
+          "chunk_id": "c_john",
+          "entities": [{"local_id": "e1", "name": "John Smith", "sentence_ids": [0], "type": "PERSON"}]
+        },
+        {
+          "chunk_id": "c_initial",
+          "entities": [{"local_id": "e1", "name": "J. Smith", "sentence_ids": [0], "type": "PERSON"}]
+        },
+        {
+          "chunk_id": "c_jack",
+          "entities": [{"local_id": "e1", "name": "Jack Smith", "sentence_ids": [0], "type": "PERSON"}]
+        }
+      ],
+      "expect_same_entity": [],
+      "expect_separate": [["c_john#e1", "c_initial#e1"], ["c_initial#e1", "c_jack#e1"]]
+    },
+    {
+      "name": "same_name_distinct_people",
+      "description": "Two identical common names without corroboration stay separate.",
+      "extractions": [
+        {
+          "chunk_id": "c_smith_a",
+          "entities": [{"local_id": "e1", "name": "John Smith", "sentence_ids": [0], "type": "PERSON"}]
+        },
+        {
+          "chunk_id": "c_smith_b",
+          "entities": [{"local_id": "e1", "name": "John Smith", "sentence_ids": [0], "type": "PERSON"}]
+        }
+      ],
+      "expect_same_entity": [],
+      "expect_separate": [["c_smith_a#e1", "c_smith_b#e1"]]
+    },
+    {
+      "name": "transitive_merge_collision",
+      "description": "John Smith bridges John A. Smith and John B. Smith, but A and B conflict and must not collapse.",
+      "extractions": [
+        {
+          "chunk_id": "c_a",
+          "entities": [
+            {"local_id": "e1", "name": "John A. Smith", "sentence_ids": [0], "type": "PERSON"}
+          ]
+        },
+        {
+          "chunk_id": "c_bridge",
+          "entities": [{"local_id": "e1", "name": "John Smith", "sentence_ids": [0], "type": "PERSON"}]
+        },
+        {
+          "chunk_id": "c_b",
+          "entities": [
+            {"local_id": "e1", "name": "John B. Smith", "sentence_ids": [0], "type": "PERSON"}
+          ]
+        }
+      ],
+      "expect_same_entity": [],
+      "expect_separate": [["c_a#e1", "c_b#e1"]]
+    },
+    {
+      "name": "acronym_alias",
+      "description": "Organization acronym corroborates the full form.",
+      "extractions": [
+        {
+          "chunk_id": "c_ibm_1",
+          "entities": [
+            {
+              "local_id": "e1",
+              "name": "International Business Machines",
+              "sentence_ids": [0],
+              "type": "ORGANIZATION"
+            }
+          ]
+        },
+        {
+          "chunk_id": "c_ibm_2",
+          "entities": [{"local_id": "e1", "name": "IBM", "sentence_ids": [0], "type": "ORGANIZATION"}]
+        }
+      ],
+      "expect_same_entity": [["c_ibm_1#e1", "c_ibm_2#e1"]],
+      "expect_separate": []
+    },
+    {
+      "name": "type_mismatch",
+      "description": "Identical strings with different types never merge.",
+      "extractions": [
+        {
+          "chunk_id": "c_jordan_p",
+          "entities": [{"local_id": "e1", "name": "Jordan", "sentence_ids": [0], "type": "PERSON"}]
+        },
+        {
+          "chunk_id": "c_jordan_l",
+          "entities": [{"local_id": "e1", "name": "Jordan", "sentence_ids": [0], "type": "LOCATION"}]
+        }
+      ],
+      "expect_same_entity": [],
+      "expect_separate": [["c_jordan_p#e1", "c_jordan_l#e1"]]
+    }
+  ]
+}

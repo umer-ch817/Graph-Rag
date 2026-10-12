@@ -1,0 +1,91 @@
+{
+  "answer_version": "answer-v1",
+  "cases": {
+    "empty_answer": {
+      "answer": "   ",
+      "citations": [
+        {
+          "chunk_id": "c_ada",
+          "sentence_ids": [
+            0
+          ]
+        }
+      ],
+      "status": "supported"
+    },
+    "insufficient": {
+      "answer": "Insufficient evidence to answer based on the provided context.",
+      "citations": [],
+      "status": "insufficient_evidence"
+    },
+    "insufficient_with_citations": {
+      "answer": "Ada Lovelace",
+      "citations": [
+        {
+          "chunk_id": "c_ada",
+          "sentence_ids": [
+            0
+          ]
+        }
+      ],
+      "status": "insufficient_evidence"
+    },
+    "invented_chunk": {
+      "answer": "Ada Lovelace",
+      "citations": [
+        {
+          "chunk_id": "c_missing",
+          "sentence_ids": [
+            0
+          ]
+        }
+      ],
+      "status": "supported"
+    },
+    "long_answer": {
+      "answer": "Ada Lovelace wrote the first algorithm and corresponded at length about engines.",
+      "citations": [
+        {
+          "chunk_id": "c_ada",
+          "sentence_ids": [
+            0
+          ]
+        }
+      ],
+      "status": "supported"
+    },
+    "malformed": "not json {",
+    "out_of_range_sentence": {
+      "answer": "Ada Lovelace",
+      "citations": [
+        {
+          "chunk_id": "c_ada",
+          "sentence_ids": [
+            99
+          ]
+        }
+      ],
+      "status": "supported"
+    },
+    "supported_ada": {
+      "answer": "Ada Lovelace",
+      "citations": [
+        {
+          "chunk_id": "c_ada",
+          "sentence_ids": [
+            0
+          ]
+        }
+      ],
+      "status": "supported"
+    },
+    "supported_no_citations": {
+      "answer": "Ada Lovelace",
+      "citations": [],
+      "status": "supported"
+    }
+  },
+  "prompt_version": "answer-prompt-v1",
+  "schema_version": "1",
+  "token_estimator": "char-word-max-v1"
+}

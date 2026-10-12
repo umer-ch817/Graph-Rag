@@ -1,0 +1,72 @@
+{
+  "corpus_id": "hp_t09_bridge_v1",
+  "description": "Two-document bridge for T09: The Night Cartographer WRITTEN_BY Elena Voss BORN_IN Lisbon. Both relations carry verbatim chunk evidence; Elena Voss merges across chunks while the book and city stay distinct.",
+  "paragraphs": [
+    {
+      "id": "p_t09_book",
+      "title": "The Night Cartographer",
+      "sentences": [
+        "The Night Cartographer was written by Elena Voss.",
+        "The novel won a literary prize."
+      ]
+    },
+    {
+      "id": "p_t09_author",
+      "title": "Elena Voss",
+      "sentences": [
+        "Elena Voss was born in Lisbon.",
+        "She writes historical novels."
+      ]
+    }
+  ],
+  "chunk_ids": {
+    "p_t09_book": "c_t09_book",
+    "p_t09_author": "c_t09_author"
+  },
+  "extractions": [
+    {
+      "chunk_id": "c_t09_book",
+      "entities": [
+        {"local_id": "e1", "name": "The Night Cartographer", "type": "WORK", "sentence_ids": [0]},
+        {"local_id": "e2", "name": "Elena Voss", "type": "PERSON", "sentence_ids": [0]}
+      ],
+      "relations": [
+        {
+          "source": "e1",
+          "type": "WRITTEN_BY",
+          "target": "e2",
+          "evidence": [
+            {"sentence_id": 0, "quote": "The Night Cartographer was written by Elena Voss."}
+          ]
+        }
+      ],
+      "schema_version": "1"
+    },
+    {
+      "chunk_id": "c_t09_author",
+      "entities": [
+        {"local_id": "e1", "name": "Elena Voss", "type": "PERSON", "sentence_ids": [0]},
+        {"local_id": "e2", "name": "Lisbon", "type": "LOCATION", "sentence_ids": [0]}
+      ],
+      "relations": [
+        {
+          "source": "e1",
+          "type": "BORN_IN",
+          "target": "e2",
+          "evidence": [
+            {"sentence_id": 0, "quote": "Elena Voss was born in Lisbon."}
+          ]
+        }
+      ],
+      "schema_version": "1"
+    }
+  ],
+  "expected": {
+    "n_entities": 3,
+    "n_mention_edges": 4,
+    "n_relations": 2,
+    "relation_types": ["BORN_IN", "WRITTEN_BY"],
+    "bridge": ["The Night Cartographer", "Elena Voss", "Lisbon"],
+    "merged_mentions": ["c_t09_author#e1", "c_t09_book#e2"]
+  }
+}

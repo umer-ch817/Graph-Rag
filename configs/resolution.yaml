@@ -1,0 +1,7 @@
+# Non-secret resolution defaults only (T08, R05).
+# No credentials in this file. Thresholds are frozen with resolver-v1;
+# a resolver change rebuilds the snapshot rather than remapping history.
+resolver_version: "resolver-v1"
+lexical_threshold: 0.88
+acronym_min_tokens: 2
+common_name_guard: true

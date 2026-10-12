@@ -1,0 +1,11 @@
+# Non-secret defaults only. GRAPHRAG_* process variables override this file.
+embedding_model: sentence-transformers/all-MiniLM-L6-v2
+reranker_model: cross-encoder/ms-marco-MiniLM-L-6-v2
+llm_model: null
+neo4j:
+  uri: bolt://127.0.0.1:7687
+  database: neo4j
+budget:
+  max_calls: 20
+  max_total_tokens: 20000
+  max_cost_usd: null

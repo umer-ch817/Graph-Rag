@@ -1,0 +1,16 @@
+# Non-secret extraction defaults only (T07, R04).
+# Credentials come from process environment; provider spend still requires
+# GRAPHRAG_BUDGET__* caps and a 20-chunk pilot audit before full extraction.
+schema_version: "1"
+prompt_version: "extraction-prompt-v1"
+extraction_version: "extraction-v1"
+max_entities: 40
+max_relations: 60
+max_output_tokens: 1024
+max_name_chars: 200
+max_quote_chars: 1000
+max_input_chars: 20000
+temperature: 0.0
+max_retries: 2
+pilot_size: 20
+pilot_seed: 42

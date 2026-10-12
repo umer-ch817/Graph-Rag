@@ -1,0 +1,28 @@
+name: graphrag-lab
+
+services:
+  neo4j:
+    # Registry-verified 5.26.31 Community multi-platform manifest (2026-09-29).
+    image: neo4j:5.26-community@sha256:5eb12ad77fa46ab73e23df9ea1f43f5c0f2a79523435577648e046be042b9b93
+    ports:
+      - "127.0.0.1:7474:7474"
+      - "127.0.0.1:7687:7687"
+    environment:
+      NEO4J_AUTH: "neo4j/${GRAPHRAG_NEO4J_PASSWORD:?Set GRAPHRAG_NEO4J_PASSWORD in your environment or local .env}"
+      NEO4J_server_memory_heap_initial__size: 256m
+      NEO4J_server_memory_heap_max__size: 512m
+      NEO4J_server_memory_pagecache_size: 256m
+    mem_limit: 1536m
+    volumes:
+      - neo4j_data:/data
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - 'NEO4J_USERNAME=neo4j NEO4J_PASSWORD="$${NEO4J_AUTH#neo4j/}" cypher-shell -a bolt://localhost:7687 "RETURN 1;" >/dev/null 2>&1'
+      interval: 10s
+      timeout: 10s
+      retries: 12
+      start_period: 40s
+
+volumes:
+  neo4j_data:
