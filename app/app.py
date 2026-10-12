@@ -14,6 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from app.components.status import render_footer, render_page_chrome, render_status_pill
+from app.components.tour import render_tour
 from graphrag_lab.config import load_config
 from graphrag_lab.jobs import DEFAULT_DB_PATH, JobStore
 from graphrag_lab.run_store import RunStore
@@ -102,6 +103,7 @@ def main() -> None:
             else ("Continue setup to reach the comparison workspace.")
         ),
     )
+    render_tour("app/app.py")
     st.subheader("Next step")
     action = summary.next_action
     st.write(f"{action.reason}")

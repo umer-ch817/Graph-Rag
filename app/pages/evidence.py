@@ -22,6 +22,7 @@ from app.components.sources import (
     render_source_list,
 )
 from app.components.status import render_footer, render_page_chrome
+from app.components.tour import render_tour
 from graphrag_lab.compare_flow import (
     arm_label,
     build_sources,
@@ -75,6 +76,7 @@ def main() -> None:
 
     st.set_page_config(page_title="GraphRAG Lab — Evidence", layout="wide")
     render_page_chrome(title="Evidence", subtitle="Follow a claim to its source sentences.")
+    render_tour("pages/evidence.py")
     context = _context()
     if context is None:
         st.info("No answer selected yet. Run a comparison first.")

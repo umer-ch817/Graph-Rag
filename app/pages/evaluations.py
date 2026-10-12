@@ -44,6 +44,7 @@ from app.components.metrics import (
     table_rows,
 )
 from app.components.status import render_footer, render_page_chrome
+from app.components.tour import render_tour
 from graphrag_lab.compare_flow import encode_deep_link
 from graphrag_lab.jobs import DEFAULT_DB_PATH
 from graphrag_lab.run_store import RunStore
@@ -383,6 +384,7 @@ def main() -> None:
         title="Evaluations",
         subtitle="Compare frozen runs with paired deltas, uncertainty and honest costs.",
     )
+    render_tour("pages/evaluations.py")
     store = RunStore(_db_path())
     runs = store.list_runs(limit=200)
     if len(runs) < 2:

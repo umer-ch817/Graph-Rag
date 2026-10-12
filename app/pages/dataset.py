@@ -23,6 +23,7 @@ from app.components.status import (
     render_status_pill,
     spend_line,
 )
+from app.components.tour import render_tour
 from graphrag_lab.config import load_config
 from graphrag_lab.jobs import DEFAULT_DB_PATH, JobStore, get_job_status
 from graphrag_lab.setup_flow import (
@@ -306,6 +307,7 @@ def main() -> None:
         title="Dataset & Index",
         subtitle="Guided preparation: dataset, vectors, graph pilot, then compare.",
     )
+    render_tour("pages/dataset.py")
     store = JobStore(_db_path())
     if not st.session_state.get("active_dataset"):
         st.session_state["active_dataset"] = latest_dataset_id(store)

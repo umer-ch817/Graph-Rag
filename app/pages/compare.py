@@ -18,6 +18,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2]))
 
 from app.components.sources import reader_blocks_for_citation, render_reader
 from app.components.status import render_footer, render_page_chrome
+from app.components.tour import render_tour
 from graphrag_lab.compare_flow import (
     ARM_LABELS,
     DEFAULT_PAIR,
@@ -370,6 +371,7 @@ def main() -> None:
 
     st.set_page_config(page_title="GraphRAG Lab — Ask & Compare", layout="wide")
     render_page_chrome(title="Ask & Compare", subtitle="See what each retrieval method found.")
+    render_tour("pages/compare.py")
     _session_defaults()
 
     corpus_id = _corpus_id()
